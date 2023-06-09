@@ -721,7 +721,7 @@ class MultipleChoiceTask(Task):
     def process_results(self, doc, results):
         gold = doc["gold"]
 
-        if len(torch.unique(torch.tensor(results))) != len(results):
+        if int((torch.tensor(results) == torch.tensor(results).max()).sum()) > 1:
             print(results)
 
         acc = 1.0 if np.argmax(results) == gold else 0.0
